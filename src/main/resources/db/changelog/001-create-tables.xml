@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+
+    <changeSet id="1" author="you">
+        <createTable tableName="groups">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="department" type="varchar(255)"/>
+            <column name="year" type="int"/>
+        </createTable>
+
+        <createTable tableName="student">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="middle_name" type="varchar(255)"/>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="date"/>
+            <column name="gender" type="varchar(10)"/>
+            <column name="status" type="varchar(50)"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="student"
+                baseColumnNames="group_id"
+                referencedTableName="groups"
+                referencedColumnNames="id"
+                constraintName="fk_student_group"/>
+    </changeSet>
+
+</databaseChangeLog>
